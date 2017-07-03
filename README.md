@@ -24,8 +24,8 @@ app.start().listen(80)
 // SrvMiddleware is from the '@srvem/middleware' module
 class SrvStatic extends SrvMiddleware {
 
-  // baseDir is the path of root directory to be served
-  constructor(baseDir?: String)
+  // base or root directory to be served
+  constructor(baseDirectory: String = '.')
 
 }
 

@@ -3,7 +3,7 @@ import { readFile } from 'fs'
 import { parse, resolve } from 'url'
 
 export class SrvStatic extends SrvMiddleware {
-  constructor(private baseDirectory: String = '') {
+  constructor(private baseDirectory: String = '.') {
     super()
   }
 

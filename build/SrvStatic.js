@@ -15,15 +15,15 @@ var fs_1 = require("fs");
 var url_1 = require("url");
 var SrvStatic = (function (_super) {
     __extends(SrvStatic, _super);
-    function SrvStatic(baseDir) {
-        if (baseDir === void 0) { baseDir = ''; }
+    function SrvStatic(baseDirectory) {
+        if (baseDirectory === void 0) { baseDirectory = '.'; }
         var _this = _super.call(this) || this;
-        _this.baseDir = baseDir;
+        _this.baseDirectory = baseDirectory;
         return _this;
     }
     SrvStatic.prototype.main = function () {
         var _this = this;
-        var pathName = url_1.parse(this.baseDir + this.request.url).pathname;
+        var pathName = this.baseDirectory.replace(/\\/g, '/').replace(/\/$/g, '') + url_1.resolve('/', url_1.parse(this.request.url).pathname);
         fs_1.readFile(pathName.substr(1), function (err, data) {
             if (err) {
                 console.error(err);
