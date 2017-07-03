@@ -1,14 +1,14 @@
 import { SrvMiddleware } from '@srvem/middleware'
 import { readFile } from 'fs'
-import { parse } from 'url'
+import { parse, resolve } from 'url'
 
 export class SrvStatic extends SrvMiddleware {
-  constructor(private baseDir: String = '') {
+  constructor(private baseDirectory: String = '') {
     super()
   }
 
   main(): void {
-    const pathName = parse(this.baseDir + this.request.url).pathname; // TODO fix this bug
+    const pathName = this.baseDirectory.replace(/\\/g, '/').replace(/\/$/g, '') + resolve('/', parse(this.request.url).pathname)
 
     readFile(pathName.substr(1), (err: NodeJS.ErrnoException, data: Buffer): void => {
       if (err) {
