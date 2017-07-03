@@ -1,6 +1,4 @@
 # @srvem/static
-  
-## Introduction
 A servem middleware used to serve static files from a specified directory.
   
 ## Installation
@@ -42,5 +40,5 @@ class SrvStatic extends SrvMiddleware {
 Kaleab S. Melkie (<kaleabmelkie@gmail.com>)
   
 ## License
-MIT License
-Copyright (c) 2017 srvem
+MIT License  
+Copyright &copy; 2017 srvem

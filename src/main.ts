@@ -1,4 +1,1 @@
-import { SrvStatic } from './SrvStatic'
-
-export { SrvStatic }
-export default { SrvStatic }
+export { SrvStatic } from './SrvStatic'
