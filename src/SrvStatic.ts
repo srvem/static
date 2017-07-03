@@ -8,7 +8,7 @@ export class SrvStatic extends SrvMiddleware {
   }
 
   main(): void {
-    const pathName = parse(this.baseDir + this.request.url).pathname;
+    const pathName = parse(this.baseDir + this.request.url).pathname; // TODO fix this bug
 
     readFile(pathName.substr(1), (err: NodeJS.ErrnoException, data: Buffer): void => {
       if (err) {
