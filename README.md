@@ -32,9 +32,8 @@ class SrvStatic extends SrvMiddleware {
 ```
   
 ## See Also
-- [@srvem/app](https://github.com/srvem/app) a super-fast and minimalist TypeScript middleware-oriented server for Node.js.
+- [@srvem/app](https://github.com/srvem/app) a super-fast and minimalist middleware-oriented and Promise-based asynchronous TypeScript server for Node.js.
 - [@srvem/router](https://github.com/srvem/static) to develop routers and server APIs with asynchronous request handlers.
-- [@srvem/middleware](https://github.com/srvem/static) to create your own custom middleware for Srvem apps.
   
 ## Credits
 Kaleab S. Melkie _<<kaleabmelkie@gmail.com>>_
