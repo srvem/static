@@ -37,7 +37,7 @@ class SrvStatic extends SrvMiddleware {
 - [@srvem/middleware](https://github.com/srvem/static) to create your own custom middleware for Srvem apps.
   
 ## Credits
-Kaleab S. Melkie (<kaleabmelkie@gmail.com>)
+Kaleab S. Melkie _<<kaleabmelkie@gmail.com>>_
   
 ## License
 MIT License  

@@ -24,8 +24,18 @@
   ],
   "author": "Kaleab S. Melkie <kaleabmelkie@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.1.2"
+  },
   "bugs": {
     "url": "https://github.com/srvem/static/issues"
   },
-  "homepage": "https://github.com/srvem/static#readme"
+  "homepage": "https://github.com/srvem/static#readme",
+  "devDependencies": {
+    "@types/node": "file:..\\app\\node_modules\\@types\\node",
+    "typescript": "file:..\\app\\node_modules\\typescript"
+  },
+  "dependencies": {
+    "@srvem/app": "file:..\\app"
+  }
 }
