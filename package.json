@@ -30,5 +30,12 @@
   "bugs": {
     "url": "https://github.com/srvem/static/issues"
   },
-  "homepage": "https://github.com/srvem/static#readme"
+  "homepage": "https://github.com/srvem/static#readme",
+  "devDependencies": {
+    "@types/node": "file:..\\app\\node_modules\\@types\\node",
+    "typescript": "file:..\\app\\node_modules\\typescript"
+  },
+  "dependencies": {
+    "@srvem/app": "file:..\\app"
+  }
 }
