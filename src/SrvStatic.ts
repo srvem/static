@@ -1,24 +1,25 @@
-import { SrvMiddleware } from '@srvem/middleware'
+import { SrvContext, SrvMiddlewareBlueprint } from '@srvem/app'
 import { readFile } from 'fs'
-import { parse, resolve } from 'url'
+import * as url from 'url'
 
-export class SrvStatic extends SrvMiddleware {
+export class SrvStatic extends SrvMiddlewareBlueprint {
   constructor(private baseDirectory: String = '.') {
     super()
   }
 
-  main(): void {
-    const pathName = this.baseDirectory.replace(/\\/g, '/').replace(/\/$/g, '') + resolve('/', parse(this.request.url).pathname)
+  async main(ctx: SrvContext): Promise<SrvContext> {
+    return new Promise<SrvContext>((resolve: (value?: SrvContext | PromiseLike<SrvContext>) => void, reject: (reason?: any) => void): void => {
+      const pathName = this.baseDirectory.replace(/\\/g, '/').replace(/\/$/g, '') + url.resolve('/', url.parse(ctx.request.url).pathname)
 
-    readFile(pathName.substr(1), (err: NodeJS.ErrnoException, data: Buffer): void => {
-      if (err) {
-        console.error(err)
-        this.response.writeHead(404)
-      } else {
-        this.response.writeHead(200)
-        this.response.write(data.toString())
-      }
-      this.response.end()
+      readFile(pathName.substr(1), (err: NodeJS.ErrnoException, data: Buffer): void => {
+        if (err) {
+          console.error(err)
+          ctx.statusCode = 404 // todo: ???
+        } else {
+          ctx.statusCode = 200
+          ctx.body = data.toString()
+        }
+      })
     })
   }
 }
