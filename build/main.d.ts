@@ -1,0 +1,1 @@
+export { SrvStatic } from './SrvStatic';
