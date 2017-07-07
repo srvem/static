@@ -39,7 +39,7 @@ declare class SrvStatic extends MiddlewareBlueprint {
   indexName: string
 
   /**
-   * Constructs the Srvem middleware.
+   * Constructs the SrvStatic middleware.
    *
    * @param baseDirectory Root of the served directory
    * @param indexName Default index file name for directory requests
