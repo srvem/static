@@ -1,6 +1,6 @@
 {
   "name": "@srvem/static",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A servem middleware that serves static files from a specified directory.",
   "main": "build/main.js",
   "typings": "build/main.d.ts",
