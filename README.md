@@ -1,39 +1,64 @@
 # @srvem/static
-A servem middleware used to serve static files from a specified directory.
+A [Srvem](https://github.com/srvem/app) middleware used to serve static files from a specified directory.
   
 ## Installation
 > `npm install --save @srvem/app @srvem/static`
   
-## Usage
+## Example
 ```typescript
 import { Srvem } from '@srvem/app'
 import { SrvStatic } from '@srvem/static'
 
-const app = new Srvem()
+// create a Srvem app
+const app: Srvem = new Srvem()
 
-app.use(new SrvStatic('./public/'))
-// more srvem middlewares can go here using app.use()
-// handlers can also be defined here using app.handle()
+// use SrvStatic middleware
+app.use(new SrvStatic('public')) // host the /public directory
 
-app.start().listen(80)
+// listen on port 3000
+app.server.listen(3000)
 
 ```
   
-## Public API
+## API
 ```typescript
-// SrvMiddleware is from the '@srvem/middleware' module
-class SrvStatic extends SrvMiddleware {
+import { Context, MiddlewareBlueprint } from '@srvem/app'
 
-  // base or root directory to be served
-  constructor(baseDirectory: String = '.')
+/**
+ * Used to serve static files from a directory.
+ */
+declare class SrvStatic extends MiddlewareBlueprint {
+  /**
+   * Root of the served directory.
+   */
+  baseDirectory: string
 
+  /**
+   * Default index file name for directory requests
+   */
+  indexName: string
+
+  /**
+   * Constructs the Srvem middleware.
+   *
+   * @param baseDirectory Root of the served directory
+   * @param indexName Default index file name for directory requests
+   */
+  constructor(baseDirectory?: string, indexName?: string)
+
+  /**
+   * Attempts to serve GET requests.
+   *
+   * @param ctx The Context
+   */
+  main(ctx: Context): Promise<void>
 }
 
 ```
   
 ## See Also
-- [@srvem/app](https://github.com/srvem/app) a super-fast and minimalist middleware-oriented and Promise-based asynchronous TypeScript server for Node.js.
-- [@srvem/router](https://github.com/srvem/static) to develop routers and server APIs with asynchronous request handlers.
+- [@srvem/app](https://github.com/srvem/app) - The core package of Srvem (contains a class used to construct a Srvem app).
+- [@srvem/router](https://github.com/srvem/router) - A Srvem middleware used to develop routers and server APIs with asynchronous request handlers.
   
 ## Credits
 Kaleab S. Melkie _<<kaleabmelkie@gmail.com>>_
