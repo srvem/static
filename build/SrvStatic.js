@@ -10,15 +10,28 @@ class SrvStatic extends app_1.SrvMiddlewareBlueprint {
     }
     async main(ctx) {
         return new Promise((resolve, reject) => {
+            if (ctx.request.method !== 'GET')
+                return resolve(ctx);
             const pathName = this.baseDirectory.replace(/\\/g, '/').replace(/\/$/g, '') + url.resolve('/', url.parse(ctx.request.url).pathname);
-            fs_1.readFile(pathName.substr(1), (err, data) => {
-                if (err)
-                    ctx.statusCode = 404;
+            return fs_1.readFile(pathName, (err, data) => {
+                if (err) {
+                    switch (err.code) {
+                        case 'ENOENT':
+                            if (!ctx.body) {
+                                ctx.statusCode = 404;
+                                ctx.body = `404 Not Found.\n\nRequest: ${ctx.request.method + ' ' + ctx.request.url}`;
+                            }
+                            break;
+                        default:
+                            ctx.statusCode = 500;
+                            ctx.body = '500 Internal Server Error.';
+                    }
+                }
                 else {
                     ctx.statusCode = 200;
                     ctx.body = data.toString();
                 }
-                resolve(ctx);
+                return resolve(ctx);
             });
         });
     }

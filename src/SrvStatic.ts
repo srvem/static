@@ -9,17 +9,35 @@ export class SrvStatic extends SrvMiddlewareBlueprint {
 
   async main(ctx: SrvContext): CtxPromiseType {
     return new Promise<SrvContext>((resolve: CtxResolveType, reject: PromiseRejectType): void => {
+      if (ctx.request.method !== 'GET')
+        return resolve(ctx)
+
       const pathName = this.baseDirectory.replace(/\\/g, '/').replace(/\/$/g, '') + url.resolve('/', url.parse(ctx.request.url).pathname)
 
-      readFile(pathName.substr(1), (err: NodeJS.ErrnoException, data: Buffer): void => {
-        if (err)
-          ctx.statusCode = 404 // todo: ???
+      return readFile(pathName, (err: NodeJS.ErrnoException, data: Buffer): void => {
+        if (err) {
+          switch (err.code) {
+            case 'ENOENT':
+              if (!ctx.body) {
+                ctx.statusCode = 404
+                ctx.body = `404 Not Found.\n\nRequest: ${ctx.request.method + ' ' + ctx.request.url}`
+              }
+              break;
+
+            // todo more ???
+            
+            default:
+              ctx.statusCode = 500
+              ctx.body = '500 Internal Server Error.'
+              // todo: should the promise be rejected ???
+          }
+        }
         else {
           ctx.statusCode = 200
           ctx.body = data.toString()
         }
         
-        resolve(ctx)
+        return resolve(ctx)
       })
     })
   }
